@@ -1,11 +1,9 @@
 package viniciushoffmanndev.desafio_itau_backend.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import viniciushoffmanndev.desafio_itau_backend.dto.TransactionRequest;
 import viniciushoffmanndev.desafio_itau_backend.model.Transaction;
 import viniciushoffmanndev.desafio_itau_backend.service.TransactionService;
@@ -22,7 +20,7 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
     @PostMapping
-    public ResponseEntity<Void> create(TransactionRequest request){
+    public ResponseEntity<Void> create(@Valid @RequestBody TransactionRequest request){
         if (request.getDataHora().isAfter(OffsetDateTime.now()) ||
         request.getValor() <=0){
             return ResponseEntity.unprocessableEntity().build();
